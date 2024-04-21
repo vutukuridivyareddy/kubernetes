@@ -1,0 +1,28 @@
+
+apiVersion: v1
+Kind: Pod
+metadata:
+  name: nodejspod
+  namespace: nodejs-ns
+  labels:
+    app: nodejs
+spec:
+  containers:
+  - name: nodjscontainer
+    image: nodejsimage
+    ports:
+    -containerport: 9981
+
+---
+apiVersion: v1
+Kind: Service
+metadata:
+  name: nodejssvc
+  namespace: nodejs-ns
+spec:
+  type: nodeport
+  selector:
+    app: nodejs
+  ports:
+    -port: 80
+     targetport: 9981
